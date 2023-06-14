@@ -43,6 +43,9 @@ https://docs.microsoft.com/en-us/azure/automation/
 
 Azure AD App Registration: Create a client secret
 https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal#create-a-new-application-secret
+
+Start-AzAutomationRunbook Documentation
+https://docs.microsoft.com/en-us/powershell/module/az.automation/start-azautomationrunbook
 #>
 
 param (
