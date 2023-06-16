@@ -44,6 +44,12 @@ https://docs.microsoft.com/en-us/azure/automation/
 
 Azure AD App Registration: Create a client secret
 https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal#create-a-new-application-secret
+
+.NOTES
+    Version: 2.0
+    Author: Bentley
+    Creation Date: 2023-06-10
+    https://github.com/bentman/PoShStaleAdDevices
 #>
 
 param (
