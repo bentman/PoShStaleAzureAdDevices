@@ -30,6 +30,12 @@ https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-ser
 
 Start-AzAutomationRunbook Documentation
 https://docs.microsoft.com/en-us/powershell/module/az.automation/start-azautomationrunbook
+
+.NOTES
+    Version: 2.0
+    Author: Bentley
+    Creation Date: 2023-06-10
+    https://github.com/bentman/PoShStaleAdDevices
 #>
 
 param (
