@@ -35,7 +35,7 @@ https://docs.microsoft.com/en-us/powershell/module/az.automation/start-azautomat
     Version: 2.0
     Author: Bentley
     Creation Date: 2023-06-10
-    https://github.com/bentman/PoShStaleAdDevices
+    https://github.com/bentman/StaleAzureAdDevices
 #>
 
 param (
