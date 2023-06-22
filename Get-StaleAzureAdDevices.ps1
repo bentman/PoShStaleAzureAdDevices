@@ -49,7 +49,7 @@ https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-ser
     Version: 2.0
     Creation Date: 2023-06-10
     Copyright (c) 2023 https://github.com/bentman
-    https://github.com/bentman/StaleAzureAdDevices
+    https://github.com/bentman/PoShStaleAzureAdDevices
 #>
 
 param (
