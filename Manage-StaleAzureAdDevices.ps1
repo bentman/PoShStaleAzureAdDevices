@@ -40,13 +40,13 @@ https://docs.microsoft.com/en-us/powershell/module/az.automation/start-azautomat
 
 param (
     # The client ID of your Azure AD App Registration
-    [Parameter(Mandatory=$true)][string] $clientId,
+    [Parameter(Mandatory = $true)][string] $clientId,
     # The tenant ID of your Azure AD tenant
-    [Parameter(Mandatory=$true)][string] $tenantId,
+    [Parameter(Mandatory = $true)][string] $tenantId,
     # The client secret of your Azure AD App Registration
-    [Parameter(Mandatory=$true)][string] $clientSecret,
+    [Parameter(Mandatory = $true)][string] $clientSecret,
     # The period of inactivity (in days) after which a device should be considered stale
-    [Parameter(Mandatory=$true)][int] $staleDays
+    [Parameter(Mandatory = $true)][int] $staleDays
 )
 # Start the Get-StaleAzureAdDevices runbook and get its output
 $getJob = (
@@ -54,13 +54,13 @@ $getJob = (
         -AutomationAccountName 'YourAutomationAccountName' `
         -Name 'Get-StaleAzureAdDevices' `
         -Parameters @{ 
-            'clientId' = $clientId; 'tenantId' = $tenantId; 'clientSecret' = $clientSecret; 'staleDays' = $staleDays 
-        } -MaxWaitSeconds 3600 -Wait)
+        'clientId' = $clientId; 'tenantId' = $tenantId; 'clientSecret' = $clientSecret; 'staleDays' = $staleDays 
+    } -MaxWaitSeconds 3600 -Wait)
 $staleDevices = $getJob.Output
 # Start the Remove-StaleAzureAdDevices runbook with the output of the Get-StaleAzureAdDevices runbook
 Start-AzAutomationRunbook `
     -AutomationAccountName 'YourAutomationAccountName' `
     -Name 'Remove-StaleAzureAdDevices' `
     -Parameters @{ 
-        'clientId' = $clientId; 'tenantId' = $tenantId; 'clientSecret' = $clientSecret; 'staleDevices' = $staleDevices 
-    } -MaxWaitSeconds 3600 -Wait
+    'clientId' = $clientId; 'tenantId' = $tenantId; 'clientSecret' = $clientSecret; 'staleDevices' = $staleDevices 
+} -MaxWaitSeconds 3600 -Wait

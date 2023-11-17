@@ -54,28 +54,43 @@ https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-ser
 
 param (
     # The client ID of your Azure AD App Registration
-    [Parameter(Mandatory=$true)][string] $clientId,
+    [Parameter(Mandatory = $true)][string] $clientId,
     # The tenant ID of your Azure AD tenant
-    [Parameter(Mandatory=$true)][string] $tenantId,
+    [Parameter(Mandatory = $true)][string] $tenantId,
     # The client secret of your Azure AD App Registration
-    [Parameter(Mandatory=$true)][string] $clientSecret,
+    [Parameter(Mandatory = $true)][string] $clientSecret,
     # The period of inactivity (in days) after which a device should be considered stale
-    [Parameter(Mandatory=$true)][int] $staleDays
+    [Parameter(Mandatory = $true)][int] $staleDays
 )
-# Import the MSAL.PS module
+# Check if MSAL.PS module is available
+if (-not (Get-Module -ListAvailable -Name MSAL.PS)) {
+    try {
+        # Install MSAL.PS module if not available
+        Install-Module -Name MSAL.PS -Force
+    }
+    catch {
+        Write-Error "Failed to install MSAL.PS module. Error: $($_.Exception.Message)"
+        return
+    }
+}
+
+# Import MSAL.PS module
 try {
-    Install-Module -Name MSAL.PS -Force
-} catch {
+    Import-Module -Name MSAL.PS -Force
+}
+catch {
     Write-Error "Failed to import MSAL.PS module. Error: $($_.Exception.Message)"
     return
 }
+
 # Authenticate with your App Registration and get an access token
 try {
     $token = Get-MsalToken `
         -ClientId $clientId `
         -TenantId $tenantId `
         -ClientSecret $clientSecret
-} catch {
+}
+catch {
     Write-Error "Failed to get access token. Error: $($_.Exception.Message)"
     return
 }
@@ -92,7 +107,8 @@ try {
     $response = Invoke-RestMethod `
         -Uri $uri `
         -Headers $headers
-} catch {
+}
+catch {
     Write-Error "Failed to get devices. Error: $($_.Exception.Message)"
     return
 }
@@ -100,6 +116,6 @@ try {
 $devices = $response.value
 # Filter the devices based on the 'approximateLastLogonTimestamp' property
 $staleDevices = $devices | 
-    Where-Object { $_.approximateLastLogonTimestamp -le $stalePeriod }
+Where-Object { $_.approximateLastLogonTimestamp -le $stalePeriod }
 # Output the stale devices
 $staleDevices
